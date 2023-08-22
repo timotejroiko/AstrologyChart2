@@ -420,8 +420,8 @@ class RadixChart extends Chart {
       const text = SVGUtils.SVGText(textPos.x, textPos.y, `${i+1}`)
       text.setAttribute("text-anchor", "middle") // start, middle, end
       text.setAttribute("dominant-baseline", "middle")
-      text.setAttribute("font-size", this.#settings.RADIX_POINTS_FONT_SIZE / 2)
-      text.setAttribute("fill", this.#settings.CHART_TEXT_COLOR)
+      text.setAttribute("font-size", this.#settings.RADIX_HOUSE_FONT_SIZE)
+      text.setAttribute("fill", this.#settings.CHART_HOUSE_NUMBER_COLOR)
       wrapper.appendChild(text)
     }
 

@@ -15,6 +15,14 @@ export const RADIX_ID = "radix"
 export const RADIX_POINTS_FONT_SIZE = 27
 
 /*
+* Font size - house cusp number
+* @constant
+* @type {Number}
+* @default 27
+*/
+export const RADIX_HOUSE_FONT_SIZE = 20
+
+/*
 * Font size - signs
 * @constant
 * @type {Number}
