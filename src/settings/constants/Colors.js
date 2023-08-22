@@ -4,7 +4,23 @@
 * @type {String}
 * @default #fff
 */
-export const CHART_BACKGROUND_COLOR = "#fff";
+export const CHART_BACKGROUND_COLOR = "none";
+
+/**
+* Planets background color
+* @constant
+* @type {String}
+* @default #fff
+*/
+export const PLANETS_BACKGROUND_COLOR = "#fff";
+
+/**
+* Aspects background color
+* @constant
+* @type {String}
+* @default #fff
+*/
+export const ASPECTS_BACKGROUND_COLOR = "#eee";
 
 /*
 * Default color of circles in charts

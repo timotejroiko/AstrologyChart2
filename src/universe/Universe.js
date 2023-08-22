@@ -39,6 +39,11 @@ class Universe {
     this.#SVGDocument = SVGUtils.SVGDocument(this.#settings.CHART_VIEWBOX_WIDTH, this.#settings.CHART_VIEWBOX_HEIGHT)
     document.getElementById(htmlElementID).appendChild(this.#SVGDocument);
 
+    // chart background
+    const circle = SVGUtils.SVGCircle(this.#settings.CHART_VIEWBOX_WIDTH / 2, this.#settings.CHART_VIEWBOX_HEIGHT / 2, this.#settings.CHART_VIEWBOX_WIDTH / 2)
+    circle.setAttribute('fill', this.#settings.CHART_BACKGROUND_COLOR)
+    this.#SVGDocument.appendChild(circle)
+
     // create wrapper for aspects
     this.#aspectsWrapper = SVGUtils.SVGGroup()
     this.#aspectsWrapper.setAttribute("id", `${this.#settings.HTML_ELEMENT_ID}-${this.#settings.ASPECTS_ID}`)

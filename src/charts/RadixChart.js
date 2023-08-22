@@ -217,6 +217,10 @@ class RadixChart extends Chart {
       }, [])
       .filter( aspect =>  aspect.aspect.name != 'Conjunction')
 
+    const circle = SVGUtils.SVGCircle(this.#centerX, this.#centerY, this.getCenterCircleRadius())
+    circle.setAttribute('fill', this.#settings.ASPECTS_BACKGROUND_COLOR)
+    aspectsWrapper.appendChild(circle)
+
     aspectsWrapper.appendChild( AspectUtils.drawAspects(this.getCenterCircleRadius(), this.getAscendantShift(), this.#settings, aspectsList))
 
     return this
@@ -256,7 +260,7 @@ class RadixChart extends Chart {
     wrapper.appendChild(mask)
 
     const circle = SVGUtils.SVGCircle(this.#centerX, this.#centerY, this.getRadius())
-    circle.setAttribute("fill", this.#settings.CHART_STROKE_ONLY ? "none" : this.#settings.CHART_BACKGROUND_COLOR);
+    circle.setAttribute("fill", this.#settings.CHART_STROKE_ONLY ? "none" : this.#settings.PLANETS_BACKGROUND_COLOR);
     circle.setAttribute("mask", this.#settings.CHART_STROKE_ONLY ? "none" : `url(#${MASK_ID})`);
     wrapper.appendChild(circle)
 
