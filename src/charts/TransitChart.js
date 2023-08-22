@@ -67,7 +67,7 @@ class TransitChart extends Chart {
   setData(data) {
     let status = this.validateData(data)
     if (!status.isValid) {
-      throw new Error(status.messages)
+      throw new Error(status.message)
     }
 
     this.#data = data
