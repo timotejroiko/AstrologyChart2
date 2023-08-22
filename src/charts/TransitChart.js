@@ -132,6 +132,10 @@ class TransitChart extends Chart {
 
     const aspectsList = this.getAspects(fromPoints, toPoints, aspects)
       .filter( aspect =>  aspect.aspect.name != 'Conjunction')
+
+    const circle = SVGUtils.SVGCircle(this.#centerX, this.#centerY, this.#radix.getCenterCircleRadius())
+    circle.setAttribute('fill', this.#settings.ASPECTS_BACKGROUND_COLOR)
+    aspectsWrapper.appendChild(circle)
     
     aspectsWrapper.appendChild( AspectUtils.drawAspects(this.#radix.getCenterCircleRadius(), this.#radix.getAscendantShift(), this.#settings, aspectsList))
 
