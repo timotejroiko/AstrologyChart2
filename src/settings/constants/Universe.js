@@ -55,3 +55,11 @@ export const CHART_STROKE_ONLY = false;
 * @default
 */
 export const CHART_FONT_FAMILY = "Astronomicon";
+
+/**
+* Always draw the full house lines, even if it overlaps with planets
+* @constant
+* @type {boolean}
+* @default false
+*/
+export const CHART_ALLOW_HOUSE_OVERLAP = false;

@@ -244,7 +244,7 @@ class TransitChart extends Chart {
     const textRadius = this.#getCenterCircleRadius() + ((this.#getRullerCircleRadius() - this.#getCenterCircleRadius()) / 6)
 
     for (let i = 0; i < cusps.length; i++) {
-      const isLineInCollisionWithPoint = Utils.isCollision(cusps[i].angle, pointsPositions, this.#settings.POINT_COLLISION_RADIUS / 2)
+      const isLineInCollisionWithPoint = !this.#settings.CHART_ALLOW_HOUSE_OVERLAP && Utils.isCollision(cusps[i].angle, pointsPositions, this.#settings.POINT_COLLISION_RADIUS / 2)
 
       const startPos = Utils.positionOnCircle(this.#centerX, this.#centerY, this.#getCenterCircleRadius(), Utils.degreeToRadian(cusps[i].angle, this.#radix.getAscendantShift()))
       const endPos = Utils.positionOnCircle(this.#centerX, this.#centerY, isLineInCollisionWithPoint ? this.#getCenterCircleRadius() + ((this.#getRullerCircleRadius() - this.#getCenterCircleRadius()) / 6) : this.#getRullerCircleRadius(), Utils.degreeToRadian(cusps[i].angle, this.#radix.getAscendantShift()))
