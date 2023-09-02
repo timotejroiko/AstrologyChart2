@@ -17,7 +17,7 @@ class Point {
   /**
    * @constructs
    * @param {Object} pointData - {name:String, angle:Number, isRetrograde:false}
-   * @param {Object} cusps- [{angle:Number}, {angle:Number}, {angle:Number}, ...]
+   * @param {Object} cusps - [{angle:Number}, {angle:Number}, {angle:Number}, ...]
    * @param {Object} settings
    */
   constructor(pointData, cusps, settings) {
