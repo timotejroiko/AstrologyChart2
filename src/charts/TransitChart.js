@@ -216,7 +216,7 @@ class TransitChart extends Chart {
       symbol.setAttribute("text-anchor", "middle") // start, middle, end
       symbol.setAttribute("dominant-baseline", "middle")
       symbol.setAttribute("font-size", this.#settings.TRANSIT_POINTS_FONT_SIZE)
-      symbol.setAttribute("fill", this.#settings.CHART_POINTS_COLOR)
+      symbol.setAttribute("fill", this.#settings.PLANET_COLORS[pointData.name] ?? this.#settings.CHART_POINTS_COLOR)
       wrapper.appendChild(symbol);
 
       // pointer

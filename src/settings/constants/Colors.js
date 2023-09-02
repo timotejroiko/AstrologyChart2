@@ -71,7 +71,7 @@ export const CHART_MAIN_AXIS_COLOR = "#000";
 export const CHART_SIGNS_COLOR = "#333";
 
 /*
-* Default color of signs in charts (arise symbol, taurus symbol, ...)
+* Default color of planets on the chart (Sun symbol, Moon symbol, ...)
 * @constant
 * @type {String}
 * @default #000
@@ -205,4 +205,19 @@ export const ASPECT_COLORS = {
   Semisextile:"#333",
   Quintile:"#333",
   Trioctile:"#333"
+}
+
+/**
+ * Override individual planet symbol colors by planet name
+ */
+export const PLANET_COLORS = {
+  //Sun: "#000",
+  //Moon: "#aaa",
+}
+
+/**
+ * override individual sign symbol colors by zodiac index
+ */
+export const SIGN_COLORS = {
+  //0: "#333"
 }

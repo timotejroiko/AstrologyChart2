@@ -281,7 +281,7 @@ class RadixChart extends Chart {
       symbol.setAttribute("text-anchor", "middle") // start, middle, end
       symbol.setAttribute("dominant-baseline", "middle")
       symbol.setAttribute("font-size", this.#settings.RADIX_SIGNS_FONT_SIZE);
-      symbol.setAttribute("fill", this.#settings.CHART_SIGNS_COLOR);
+      symbol.setAttribute("fill", this.#settings.SIGN_COLORS[symbolIndex] ?? this.#settings.CHART_SIGNS_COLOR);
       return symbol
     }
 
@@ -370,7 +370,7 @@ class RadixChart extends Chart {
       symbol.setAttribute("text-anchor", "middle") // start, middle, end
       symbol.setAttribute("dominant-baseline", "middle")
       symbol.setAttribute("font-size", this.#settings.RADIX_POINTS_FONT_SIZE)
-      symbol.setAttribute("fill", this.#settings.CHART_POINTS_COLOR)
+      symbol.setAttribute("fill", this.#settings.PLANET_COLORS[pointData.name] ?? this.#settings.CHART_POINTS_COLOR)
       wrapper.appendChild(symbol);
 
       // pointer
