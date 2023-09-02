@@ -63,3 +63,11 @@ export const CHART_FONT_FAMILY = "Astronomicon";
 * @default false
 */
 export const CHART_ALLOW_HOUSE_OVERLAP = false;
+
+/**
+* Draw mains axis symbols outside the chart: Ac, Mc, Ic, Dc
+* @constant
+* @type {boolean}
+* @default false
+*/
+export const CHART_DRAW_MAIN_AXIS = true;

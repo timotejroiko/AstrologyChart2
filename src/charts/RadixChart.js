@@ -239,7 +239,7 @@ class RadixChart extends Chart {
     this.#drawRuler()
     this.#drawPoints(data)
     this.#drawCusps(data)
-    this.#drawMainAxisDescription(data)
+    this.#settings.CHART_DRAW_MAIN_AXIS && this.#drawMainAxisDescription(data)
     this.#drawBorders()
     this.#settings.DRAW_ASPECTS && this.drawAspects()
   }
