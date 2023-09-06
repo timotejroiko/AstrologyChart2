@@ -89,8 +89,9 @@ class Point {
     const chartCenterY = this.#settings.CHART_VIEWBOX_HEIGHT / 2
     const angleFromSymbolToCenter = Utils.positionToAngle(xPos, yPos, chartCenterX, chartCenterY)
 
-    angleInSign.call(this)
-    this.getDignity() && dignities.call(this)
+    this.#settings.POINT_PROPERTIES_SHOW_ANGLE && angleInSign.call(this)
+
+    this.#settings.POINT_PROPERTIES_SHOW_DIGNITY && this.getDignity() && dignities.call(this)
 
     return wrapper //======>
 
@@ -110,7 +111,7 @@ class Point {
       angleInSignText.setAttribute("font-family", this.#settings.CHART_FONT_FAMILY);
       angleInSignText.setAttribute("text-anchor", "middle") // start, middle, end
       angleInSignText.setAttribute("dominant-baseline", "middle")
-      angleInSignText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_FONT_SIZE);
+      angleInSignText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_ANGLE_SIZE || this.#settings.POINT_PROPERTIES_FONT_SIZE);
       angleInSignText.setAttribute("fill", this.#settings.POINT_PROPERTIES_COLOR);
       wrapper.appendChild(angleInSignText)
     }
@@ -124,7 +125,7 @@ class Point {
       dignitiesText.setAttribute("font-family", "sans-serif");
       dignitiesText.setAttribute("text-anchor", "middle") // start, middle, end
       dignitiesText.setAttribute("dominant-baseline", "text-bottom")
-      dignitiesText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_FONT_SIZE / 1.2);
+      dignitiesText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_DIGNITY_SIZE || (this.#settings.POINT_PROPERTIES_FONT_SIZE / 1.2));
       dignitiesText.setAttribute("fill", this.#settings.POINT_PROPERTIES_COLOR);
       wrapper.appendChild(dignitiesText)
     }
@@ -178,10 +179,10 @@ class Point {
     const AQUARIUS = 11
     const PISCES = 12
 
-    const RULERSHIP_SYMBOL = "r"
-    const DETRIMENT_SYMBOL = "d"
-    const FALL_SYMBOL = "f"
-    const EXALTATION_SYMBOL = "e"
+    const RULERSHIP_SYMBOL = this.#settings.POINT_PROPERTIES_DIGNITY_SYMBOLS[0];
+    const DETRIMENT_SYMBOL = this.#settings.POINT_PROPERTIES_DIGNITY_SYMBOLS[1];
+    const EXALTATION_SYMBOL = this.#settings.POINT_PROPERTIES_DIGNITY_SYMBOLS[2];
+    const FALL_SYMBOL = this.#settings.POINT_PROPERTIES_DIGNITY_SYMBOLS[3];
 
     switch (this.#name) {
       case SVGUtils.SYMBOL_SUN:
