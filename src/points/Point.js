@@ -90,7 +90,7 @@ class Point {
     const angleFromSymbolToCenter = Utils.positionToAngle(xPos, yPos, chartCenterX, chartCenterY)
 
     this.#settings.POINT_PROPERTIES_SHOW_ANGLE && angleInSign.call(this)
-
+    this.#settings.POINT_PROPERTIES_SHOW_RETROGRADE && retrograde.call(this)
     this.#settings.POINT_PROPERTIES_SHOW_DIGNITY && this.getDignity() && dignities.call(this)
 
     return wrapper //======>
@@ -99,15 +99,11 @@ class Point {
      *  Angle in sign
      */
     function angleInSign() {
-      const angleInSignPosition = Utils.positionOnCircle(xPos, yPos, 2 * this.#settings.POINT_COLLISION_RADIUS, Utils.degreeToRadian(-angleFromSymbolToCenter, angleShift))
+      const angleInSignPosition = Utils.positionOnCircle(xPos, yPos, this.#settings.POINT_PROPERTIES_ANGLE_OFFSET * this.#settings.POINT_COLLISION_RADIUS, Utils.degreeToRadian(-angleFromSymbolToCenter, angleShift))
       // It is possible to rotate the text, when uncomment a line bellow.
       //textWrapper.setAttribute("transform", `rotate(${angleFromSymbolToCenter},${textPosition.x},${textPosition.y})`)
 
-      const text = []
-      text.push(this.getAngleInSign())
-      this.#isRetrograde && text.push(SVGUtils.SYMBOL_RETROGRADE_CODE)
-
-      const angleInSignText = SVGUtils.SVGText(angleInSignPosition.x, angleInSignPosition.y, text.join(" "))
+      const angleInSignText = SVGUtils.SVGText(angleInSignPosition.x, angleInSignPosition.y, this.getAngleInSign())
       angleInSignText.setAttribute("font-family", this.#settings.CHART_FONT_FAMILY);
       angleInSignText.setAttribute("text-anchor", "middle") // start, middle, end
       angleInSignText.setAttribute("dominant-baseline", "middle")
@@ -117,15 +113,30 @@ class Point {
     }
 
     /*
+     *  Retrograde
+     */
+    function retrograde() {
+      const retrogradePosition = Utils.positionOnCircle(xPos, yPos, this.#settings.POINT_PROPERTIES_RETROGRADE_OFFSET * this.#settings.POINT_COLLISION_RADIUS, Utils.degreeToRadian(-angleFromSymbolToCenter, angleShift))
+
+      const retrogradeText = SVGUtils.SVGText(retrogradePosition.x, retrogradePosition.y, SVGUtils.SYMBOL_RETROGRADE_CODE)
+      retrogradeText.setAttribute("font-family", this.#settings.CHART_FONT_FAMILY);
+      retrogradeText.setAttribute("text-anchor", "middle") // start, middle, end
+      retrogradeText.setAttribute("dominant-baseline", "middle")
+      retrogradeText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_RETROGRADE_SIZE || this.#settings.POINT_PROPERTIES_FONT_SIZE);
+      retrogradeText.setAttribute("fill", this.#settings.POINT_PROPERTIES_COLOR);
+      wrapper.appendChild(retrogradeText)
+    }
+
+    /*
      *  Dignities
      */
     function dignities() {
-      const dignitiesPosition = Utils.positionOnCircle(xPos, yPos, 3 * this.#settings.POINT_COLLISION_RADIUS, Utils.degreeToRadian(-angleFromSymbolToCenter, angleShift))
+      const dignitiesPosition = Utils.positionOnCircle(xPos, yPos, this.#settings.POINT_PROPERTIES_DIGNITY_OFFSET * this.#settings.POINT_COLLISION_RADIUS, Utils.degreeToRadian(-angleFromSymbolToCenter, angleShift))
       const dignitiesText = SVGUtils.SVGText(dignitiesPosition.x, dignitiesPosition.y, this.getDignity())
       dignitiesText.setAttribute("font-family", "sans-serif");
       dignitiesText.setAttribute("text-anchor", "middle") // start, middle, end
-      dignitiesText.setAttribute("dominant-baseline", "text-bottom")
-      dignitiesText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_DIGNITY_SIZE || (this.#settings.POINT_PROPERTIES_FONT_SIZE / 1.2));
+      dignitiesText.setAttribute("dominant-baseline", "middle")
+      dignitiesText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_DIGNITY_SIZE || this.#settings.POINT_PROPERTIES_FONT_SIZE);
       dignitiesText.setAttribute("fill", this.#settings.POINT_PROPERTIES_COLOR);
       wrapper.appendChild(dignitiesText)
     }

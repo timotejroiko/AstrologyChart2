@@ -52,7 +52,7 @@ export const POINT_PROPERTIES_FONT_SIZE = 16
 * @type {Number}
 * @default 6
 */
-export const POINT_PROPERTIES_ANGLE_SIZE = 16
+export const POINT_PROPERTIES_ANGLE_SIZE = 25
 
 /*
 * Text size of retrograde symbol
@@ -60,7 +60,7 @@ export const POINT_PROPERTIES_ANGLE_SIZE = 16
 * @type {Number}
 * @default 6
 */
-export const POINT_PROPERTIES_RETROGRADE_SIZE = 16
+export const POINT_PROPERTIES_RETROGRADE_SIZE = 25
 
 /*
 * Text size of dignity symbol
@@ -68,7 +68,31 @@ export const POINT_PROPERTIES_RETROGRADE_SIZE = 16
 * @type {Number}
 * @default 6
 */
-export const POINT_PROPERTIES_DIGNITY_SIZE = 16
+export const POINT_PROPERTIES_DIGNITY_SIZE = 12
+
+/*
+* Angle offset multiplier
+* @constant
+* @type {Number}
+* @default 6
+*/
+export const POINT_PROPERTIES_ANGLE_OFFSET = 2
+
+/*
+* Retrograde symbol offset multiplier
+* @constant
+* @type {Number}
+* @default 6
+*/
+export const POINT_PROPERTIES_RETROGRADE_OFFSET = 3.5
+
+/*
+* Dignity symbol offset multiplier
+* @constant
+* @type {Number}
+* @default 6
+*/
+export const POINT_PROPERTIES_DIGNITY_OFFSET = 5
 
 /**
 * A point collision radius
