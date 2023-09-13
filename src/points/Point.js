@@ -90,7 +90,7 @@ class Point {
     const angleFromSymbolToCenter = Utils.positionToAngle(xPos, yPos, chartCenterX, chartCenterY)
 
     this.#settings.POINT_PROPERTIES_SHOW_ANGLE && angleInSign.call(this)
-    this.#settings.POINT_PROPERTIES_SHOW_RETROGRADE && retrograde.call(this)
+    this.#settings.POINT_PROPERTIES_SHOW_RETROGRADE && this.#isRetrograde && retrograde.call(this)
     this.#settings.POINT_PROPERTIES_SHOW_DIGNITY && this.getDignity() && dignities.call(this)
 
     return wrapper //======>
