@@ -168,7 +168,7 @@ class Point {
    * @return {Number}
    */
   getAngleInSign() {
-    return Math.round(this.#angle % 30)
+    return Math.floor(this.#angle % 30)
   }
 
   /**
