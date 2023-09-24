@@ -34,7 +34,7 @@
   },
   "scripts": {
     "watch": "webpack --watch --config webpack.dev.js",
-    "build": "webpack --config webpack.prod.js",
+    "build": "webpack --config webpack.prod.js && webpack --config webpack.dev.js",
     "test": "jest",
     "doc": "jsdoc -c jsdoc.json"
   }
