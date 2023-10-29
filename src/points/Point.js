@@ -108,7 +108,7 @@ class Point {
       angleInSignText.setAttribute("text-anchor", "middle") // start, middle, end
       angleInSignText.setAttribute("dominant-baseline", "middle")
       angleInSignText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_ANGLE_SIZE || this.#settings.POINT_PROPERTIES_FONT_SIZE);
-      angleInSignText.setAttribute("fill", this.#settings.POINT_PROPERTIES_COLOR);
+      angleInSignText.setAttribute("fill", this.#settings.POINT_PROPERTIES_ANGLE_COLOR || this.#settings.POINT_PROPERTIES_COLOR);
       wrapper.appendChild(angleInSignText)
     }
 
@@ -123,7 +123,7 @@ class Point {
       retrogradeText.setAttribute("text-anchor", "middle") // start, middle, end
       retrogradeText.setAttribute("dominant-baseline", "middle")
       retrogradeText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_RETROGRADE_SIZE || this.#settings.POINT_PROPERTIES_FONT_SIZE);
-      retrogradeText.setAttribute("fill", this.#settings.POINT_PROPERTIES_COLOR);
+      retrogradeText.setAttribute("fill", this.#settings.POINT_PROPERTIES_RETROGRADE_COLOR || this.#settings.POINT_PROPERTIES_COLOR);
       wrapper.appendChild(retrogradeText)
     }
 
@@ -137,7 +137,7 @@ class Point {
       dignitiesText.setAttribute("text-anchor", "middle") // start, middle, end
       dignitiesText.setAttribute("dominant-baseline", "middle")
       dignitiesText.setAttribute("font-size", this.#settings.POINT_PROPERTIES_DIGNITY_SIZE || this.#settings.POINT_PROPERTIES_FONT_SIZE);
-      dignitiesText.setAttribute("fill", this.#settings.POINT_PROPERTIES_COLOR);
+      dignitiesText.setAttribute("fill", this.#settings.POINT_PROPERTIES_DIGNITY_COLOR || this.#settings.POINT_PROPERTIES_COLOR);
       wrapper.appendChild(dignitiesText)
     }
   }

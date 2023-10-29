@@ -156,6 +156,7 @@ class TransitChart extends Chart {
 
     this.#drawRuler()
     this.#drawCusps(data)
+    this.#settings.CHART_DRAW_MAIN_AXIS && this.#drawMainAxisDescription(data)
     this.#drawPoints(data)
     this.#drawBorders()
     this.#settings.DRAW_ASPECTS && this.drawAspects()
@@ -216,7 +217,7 @@ class TransitChart extends Chart {
       symbol.setAttribute("text-anchor", "middle") // start, middle, end
       symbol.setAttribute("dominant-baseline", "middle")
       symbol.setAttribute("font-size", this.#settings.TRANSIT_POINTS_FONT_SIZE)
-      symbol.setAttribute("fill", this.#settings.PLANET_COLORS[pointData.name] ?? this.#settings.CHART_POINTS_COLOR)
+      symbol.setAttribute("fill", this.#settings.TRANSIT_PLANET_COLORS[pointData.name] ?? this.#settings.PLANET_COLORS[pointData.name] ?? this.#settings.CHART_POINTS_COLOR)
       wrapper.appendChild(symbol);
 
       // pointer
@@ -265,11 +266,107 @@ class TransitChart extends Chart {
 
       const textPos = Utils.positionOnCircle(this.#centerX, this.#centerY, textRadius, Utils.degreeToRadian(textAngle, this.#radix.getAscendantShift()))
       const text = SVGUtils.SVGText(textPos.x, textPos.y, `${i+1}`)
+      text.setAttribute("font-family", this.#settings.CHART_FONT_FAMILY)
       text.setAttribute("text-anchor", "middle") // start, middle, end
       text.setAttribute("dominant-baseline", "middle")
       text.setAttribute("font-size", this.#settings.RADIX_HOUSE_FONT_SIZE)
-      text.setAttribute("fill", this.#settings.CHART_HOUSE_NUMBER_COLOR)
+      text.setAttribute("fill", this.#settings.TRANSIT_HOUSE_NUMBER_COLOR || this.#settings.CHART_HOUSE_NUMBER_COLOR)
       wrapper.appendChild(text)
+
+      if(this.#settings.DRAW_HOUSE_DEGREE) {
+        const degreePos = Utils.positionOnCircle(this.#centerX, this.#centerY, this.#getRullerCircleRadius() - (this.getRadius() - this.#getRullerCircleRadius()), Utils.degreeToRadian(startCusp - 1.75, this.#radix.getAscendantShift()))
+        const degree = SVGUtils.SVGText(degreePos.x, degreePos.y, Math.floor(cusps[i].angle % 30) + "º")
+        degree.setAttribute("text-anchor", "middle") // start, middle, end
+        degree.setAttribute("dominant-baseline", "middle")
+        degree.setAttribute("font-size", this.#settings.POINT_PROPERTIES_ANGLE_SIZE / 2)
+        degree.setAttribute("fill", this.#settings.TRANSIT_HOUSE_NUMBER_COLOR || this.#settings.CHART_HOUSE_NUMBER_COLOR)
+        wrapper.appendChild(degree)
+      }
+    }
+
+    this.#root.appendChild(wrapper)
+  }
+
+  /*
+   * Draw main axis descrition
+   * @param {Array} axisList
+   */
+  #drawMainAxisDescription(data) {
+    const AXIS_LENGTH = 10
+    const cusps = data.cusps
+
+    const axisList = [{
+        name: SVGUtils.SYMBOL_AS,
+        angle: cusps[0].angle
+      },
+      {
+        name: SVGUtils.SYMBOL_IC,
+        angle: cusps[3].angle
+      },
+      {
+        name: SVGUtils.SYMBOL_DS,
+        angle: cusps[6].angle
+      },
+      {
+        name: SVGUtils.SYMBOL_MC,
+        angle: cusps[9].angle
+      },
+    ]
+
+    const wrapper = SVGUtils.SVGGroup()
+
+    const rad1 = this.getRadius();
+    const rad2 = this.getRadius() + AXIS_LENGTH;
+
+    for (const axis of axisList) {
+      let startPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad1, Utils.degreeToRadian(axis.angle, this.#radix.getAscendantShift()))
+      let endPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad2, Utils.degreeToRadian(axis.angle, this.#radix.getAscendantShift()))
+      let line = SVGUtils.SVGLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
+      line.setAttribute("stroke", this.#settings.CHART_MAIN_AXIS_COLOR);
+      line.setAttribute("stroke-width", this.#settings.CHART_MAIN_STROKE);
+      wrapper.appendChild(line);
+
+      let textPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad2, Utils.degreeToRadian(axis.angle, this.#radix.getAscendantShift()))
+      let symbol;
+      let SHIFT_X = 0;
+      let SHIFT_Y = 0;
+      const STEP = 2
+      switch (axis.name) {
+        case "As":
+          SHIFT_X -= STEP
+          SHIFT_Y -= STEP
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
+          symbol.setAttribute("text-anchor", "end")
+          symbol.setAttribute("dominant-baseline", "middle")
+          break;
+        case "Ds":
+          SHIFT_X += STEP
+          SHIFT_Y -= STEP
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
+          symbol.setAttribute("text-anchor", "start")
+          symbol.setAttribute("dominant-baseline", "middle")
+          break;
+        case "Mc":
+          SHIFT_Y -= STEP
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
+          symbol.setAttribute("text-anchor", "middle")
+          symbol.setAttribute("dominant-baseline", "text-top")
+          break;
+        case "Ic":
+          SHIFT_Y += STEP
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
+          symbol.setAttribute("text-anchor", "middle")
+          symbol.setAttribute("dominant-baseline", "hanging")
+          break;
+        default:
+          console.error(axis.name)
+          throw new Error("Unknown axis name.")
+      }
+      symbol.setAttribute("font-family", this.#settings.CHART_FONT_FAMILY);
+      symbol.setAttribute("font-size", this.#settings.RADIX_AXIS_FONT_SIZE);
+      symbol.setAttribute("fill", this.#settings.CHART_MAIN_AXIS_COLOR);
+
+      wrapper.appendChild(symbol);
     }
 
     this.#root.appendChild(wrapper)

@@ -422,11 +422,22 @@ class RadixChart extends Chart {
 
       const textPos = Utils.positionOnCircle(this.#centerX, this.#centerY, textRadius, Utils.degreeToRadian(textAngle, this.getAscendantShift()))
       const text = SVGUtils.SVGText(textPos.x, textPos.y, `${i+1}`)
+      text.setAttribute("font-family", this.#settings.CHART_FONT_FAMILY)
       text.setAttribute("text-anchor", "middle") // start, middle, end
       text.setAttribute("dominant-baseline", "middle")
       text.setAttribute("font-size", this.#settings.RADIX_HOUSE_FONT_SIZE)
       text.setAttribute("fill", this.#settings.CHART_HOUSE_NUMBER_COLOR)
       wrapper.appendChild(text)
+
+      if(this.#settings.DRAW_HOUSE_DEGREE) {
+        const degreePos = Utils.positionOnCircle(this.#centerX, this.#centerY, this.getRullerCircleRadius() - (this.getInnerCircleRadius() - this.getRullerCircleRadius()) / 1.2, Utils.degreeToRadian(startCusp - 2.4, this.getAscendantShift()))
+        const degree = SVGUtils.SVGText(degreePos.x, degreePos.y, Math.floor(cusps[i].angle % 30) + "º")
+        degree.setAttribute("text-anchor", "middle") // start, middle, end
+        degree.setAttribute("dominant-baseline", "middle")
+        degree.setAttribute("font-size", this.#settings.POINT_PROPERTIES_ANGLE_SIZE / 2)
+        degree.setAttribute("fill", this.#settings.CHART_HOUSE_NUMBER_COLOR)
+        wrapper.appendChild(degree)
+      }
     }
 
     this.#root.appendChild(wrapper)
@@ -460,15 +471,18 @@ class RadixChart extends Chart {
 
     const wrapper = SVGUtils.SVGGroup()
 
+    const rad1 = this.#numberOfLevels === 24 ? this.getRadius() : this.getInnerCircleRadius();
+    const rad2 = this.#numberOfLevels === 24 ? this.getRadius() + AXIS_LENGTH : this.getInnerCircleRadius() + AXIS_LENGTH / 2;
+
     for (const axis of axisList) {
-      let startPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, this.getRadius(), Utils.degreeToRadian(axis.angle, this.getAscendantShift()))
-      let endPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, this.getRadius() + AXIS_LENGTH, Utils.degreeToRadian(axis.angle, this.getAscendantShift()))
+      let startPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad1, Utils.degreeToRadian(axis.angle, this.getAscendantShift()))
+      let endPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad2, Utils.degreeToRadian(axis.angle, this.getAscendantShift()))
       let line = SVGUtils.SVGLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
       line.setAttribute("stroke", this.#settings.CHART_MAIN_AXIS_COLOR);
       line.setAttribute("stroke-width", this.#settings.CHART_MAIN_STROKE);
       wrapper.appendChild(line);
 
-      let textPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, this.getRadius() + AXIS_LENGTH, Utils.degreeToRadian(axis.angle, this.getAscendantShift()))
+      let textPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad2, Utils.degreeToRadian(axis.angle, this.getAscendantShift()))
       let symbol;
       let SHIFT_X = 0;
       let SHIFT_Y = 0;

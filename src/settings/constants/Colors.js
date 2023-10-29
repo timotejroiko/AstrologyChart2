@@ -221,3 +221,11 @@ export const PLANET_COLORS = {
 export const SIGN_COLORS = {
   //0: "#333"
 }
+
+/**
+ * Override individual planet symbol colors by planet name on transit charts
+ */
+export const TRANSIT_PLANET_COLORS = {
+  //Sun: "#000",
+  //Moon: "#aaa",
+}
