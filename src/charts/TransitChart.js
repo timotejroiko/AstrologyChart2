@@ -274,12 +274,15 @@ class TransitChart extends Chart {
       wrapper.appendChild(text)
 
       if(this.#settings.DRAW_HOUSE_DEGREE) {
+        if(Array.isArray(this.#settings.HOUSE_DEGREE_FILTER) && !this.#settings.HOUSE_DEGREE_FILTER.includes(i)) {
+          continue;
+        }
         const degreePos = Utils.positionOnCircle(this.#centerX, this.#centerY, this.#getRullerCircleRadius() - (this.getRadius() - this.#getRullerCircleRadius()), Utils.degreeToRadian(startCusp - 1.75, this.#radix.getAscendantShift()))
         const degree = SVGUtils.SVGText(degreePos.x, degreePos.y, Math.floor(cusps[i].angle % 30) + "º")
         degree.setAttribute("text-anchor", "middle") // start, middle, end
         degree.setAttribute("dominant-baseline", "middle")
-        degree.setAttribute("font-size", this.#settings.POINT_PROPERTIES_ANGLE_SIZE / 2)
-        degree.setAttribute("fill", this.#settings.TRANSIT_HOUSE_NUMBER_COLOR || this.#settings.CHART_HOUSE_NUMBER_COLOR)
+        degree.setAttribute("font-size", this.#settings.HOUSE_DEGREE_SIZE || this.#settings.POINT_PROPERTIES_ANGLE_SIZE / 2)
+        degree.setAttribute("fill", this.#settings.HOUSE_DEGREE_COLOR || this.#settings.TRANSIT_HOUSE_NUMBER_COLOR || this.#settings.CHART_HOUSE_NUMBER_COLOR)
         wrapper.appendChild(degree)
       }
     }
