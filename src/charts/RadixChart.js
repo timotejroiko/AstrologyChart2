@@ -435,6 +435,7 @@ class RadixChart extends Chart {
         }
         const degreePos = Utils.positionOnCircle(this.#centerX, this.#centerY, this.getRullerCircleRadius() - (this.getInnerCircleRadius() - this.getRullerCircleRadius()) / 1.2, Utils.degreeToRadian(startCusp - 2.4, this.getAscendantShift()))
         const degree = SVGUtils.SVGText(degreePos.x, degreePos.y, Math.floor(cusps[i].angle % 30) + "º")
+        degree.setAttribute("font-family", "Arial")
         degree.setAttribute("text-anchor", "middle") // start, middle, end
         degree.setAttribute("dominant-baseline", "middle")
         degree.setAttribute("font-size", this.#settings.HOUSE_DEGREE_SIZE || this.#settings.POINT_PROPERTIES_ANGLE_SIZE / 2)
