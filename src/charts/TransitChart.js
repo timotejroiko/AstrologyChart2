@@ -330,37 +330,28 @@ class TransitChart extends Chart {
       line.setAttribute("stroke-width", this.#settings.CHART_MAIN_STROKE);
       wrapper.appendChild(line);
 
-      let textPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad2, Utils.degreeToRadian(axis.angle, this.#radix.getAscendantShift()))
+      let textPoint = Utils.positionOnCircle(this.#centerX, this.#centerY, rad2 + AXIS_LENGTH + 2, Utils.degreeToRadian(axis.angle, this.#radix.getAscendantShift()))
       let symbol;
-      let SHIFT_X = 0;
-      let SHIFT_Y = 0;
-      const STEP = 2
       switch (axis.name) {
         case "As":
-          SHIFT_X -= STEP
-          SHIFT_Y -= STEP
-          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
-          symbol.setAttribute("text-anchor", "end")
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x, textPoint.y)
+          symbol.setAttribute("text-anchor", "middle")
           symbol.setAttribute("dominant-baseline", "middle")
           break;
         case "Ds":
-          SHIFT_X += STEP
-          SHIFT_Y -= STEP
-          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
-          symbol.setAttribute("text-anchor", "start")
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x, textPoint.y)
+          symbol.setAttribute("text-anchor", "middle")
           symbol.setAttribute("dominant-baseline", "middle")
           break;
         case "Mc":
-          SHIFT_Y -= STEP
-          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x, textPoint.y)
           symbol.setAttribute("text-anchor", "middle")
-          symbol.setAttribute("dominant-baseline", "text-top")
+          symbol.setAttribute("dominant-baseline", "middle")
           break;
         case "Ic":
-          SHIFT_Y += STEP
-          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x + SHIFT_X, textPoint.y + SHIFT_Y)
+          symbol = SVGUtils.SVGSymbol(axis.name, textPoint.x, textPoint.y)
           symbol.setAttribute("text-anchor", "middle")
-          symbol.setAttribute("dominant-baseline", "hanging")
+          symbol.setAttribute("dominant-baseline", "middle")
           break;
         default:
           console.error(axis.name)
