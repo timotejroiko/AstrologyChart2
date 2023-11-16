@@ -430,7 +430,7 @@ class RadixChart extends Chart {
       wrapper.appendChild(text)
 
       if(this.#settings.DRAW_HOUSE_DEGREE) {
-        if(Array.isArray(this.#settings.HOUSE_DEGREE_FILTER) && !this.#settings.HOUSE_DEGREE_FILTER.includes(i)) {
+        if(Array.isArray(this.#settings.HOUSE_DEGREE_FILTER) && !this.#settings.HOUSE_DEGREE_FILTER.includes(i+1)) {
           continue;
         }
         const degreePos = Utils.positionOnCircle(this.#centerX, this.#centerY, this.getRullerCircleRadius() - (this.getInnerCircleRadius() - this.getRullerCircleRadius()) / 1.2, Utils.degreeToRadian(startCusp - 2.4, this.getAscendantShift()))

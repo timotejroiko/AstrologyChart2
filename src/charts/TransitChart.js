@@ -274,7 +274,7 @@ class TransitChart extends Chart {
       wrapper.appendChild(text)
 
       if(this.#settings.DRAW_HOUSE_DEGREE) {
-        if(Array.isArray(this.#settings.HOUSE_DEGREE_FILTER) && !this.#settings.HOUSE_DEGREE_FILTER.includes(i)) {
+        if(Array.isArray(this.#settings.HOUSE_DEGREE_FILTER) && !this.#settings.HOUSE_DEGREE_FILTER.includes(i+1)) {
           continue;
         }
         const degreePos = Utils.positionOnCircle(this.#centerX, this.#centerY, this.#getRullerCircleRadius() - (this.getRadius() - this.#getRullerCircleRadius()), Utils.degreeToRadian(startCusp - 1.75, this.#radix.getAscendantShift()))
